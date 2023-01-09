@@ -52,6 +52,7 @@ export const styles ={
     width: 500,
     height: 500,
     margin: { top: 20, bottom: 20, left: 20, right: 20 },
+    smallSize: 7,
     color:{
         purple3: '#a44afe',
         background : '#eaedff',

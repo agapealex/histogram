@@ -94,8 +94,7 @@ const Histogram = () => {
                 />
                 <AxisBottom
                     top={yMax + styles.margin.top/2}
-                    left={styles.margin.left + 7 }
-                    tickClassName="ceva"
+                    left={styles.margin.left + styles.smallSize}
                     hideAxisLine
                     hideTicks
                     scale={xScale}
