@@ -23,13 +23,11 @@ const Histogram = () => {
 
     const allPosts = data.allPosts.map(convertPosts);
     const postsPerEachMonth = getPostsPerEachMonth(allPosts);
-    const maxMonth = getMaxMonth(postsPerEachMonth, allPosts);
 
     const xMax = styles.width - styles.margin.left - styles.margin.right;
     const yMax = styles.height - styles.margin.top - styles.margin.bottom;
 
     const getMonthName = month => month.name;
-    const getMonthPosts = month => month.posts;
 
     const xScale = scaleBand({
         range: [0, xMax],
@@ -40,7 +38,7 @@ const Histogram = () => {
 
     const yScale = scaleLinear({
         range: [yMax, 0],
-        domain: [0, maxMonth.length],
+        domain: [0, getMaxMonth(postsPerEachMonth, allPosts).length],
         round: true,
     });
 
@@ -49,7 +47,7 @@ const Histogram = () => {
 
     const compose = (scale, accessor) => data => scale(accessor(data));
     const xPoint = compose(xScale, getMonthName);
-    const yPoint = compose(yScale, getMonthPosts);
+    const yPoint = compose(yScale, month => month.posts);
 
     return (
         <StyledHistogram>
@@ -62,7 +60,7 @@ const Histogram = () => {
                     yScale={yScale}
                     width={xMax}
                     height={yMax}
-                    stroke="black"
+                    stroke={styles.color.black}
                     strokeOpacity={0.1}
                 />
                 {postsPerEachMonth.map((month, index) => {
@@ -76,7 +74,7 @@ const Histogram = () => {
                             y={yPoint(month)}
                             height={barHeight }
                             width={xScale.bandwidth()}
-                            fill="blue"
+                            fill={styles.color.midnightBlue}
                         />
                     </Group>
                     );
