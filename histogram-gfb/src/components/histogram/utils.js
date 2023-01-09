@@ -3,17 +3,19 @@ import moment from 'moment';
 
 export const GET_ALL_USERS = gql`
   query{
-    allPosts(count: 50) {
+    allPosts(count: 100) {
       id
       createdAt
     }
   }
 `;
 
+const year = 2019;
+
 export const initializedPostsPerEachMonth = moment
             .monthsShort()
             .map( month => Object.freeze({
-                month,
+                name: month,
                 posts: 0
             }))
 
@@ -22,14 +24,14 @@ export const convertPosts = (post) => {
 
     return {
         id: post.id,
-        monthCreated: initializedPostsPerEachMonth[formatedDate.getMonth()].month,
+        monthCreated: initializedPostsPerEachMonth[formatedDate.getMonth()].name,
         yearCreated: formatedDate.getFullYear()
     }
 }
 
 const updatePostsPerEachMonth = (postsPerEachMonth, post) => {
-    post.yearCreated === 2019 &&
-    (postsPerEachMonth.find(p => p.month === post.monthCreated))
+    post.yearCreated === year &&
+    (postsPerEachMonth.find(month => month.name === post.monthCreated))
     .posts++;
     
     return postsPerEachMonth;
@@ -44,7 +46,7 @@ export const getMaxMonth = (postsPerEachMonth, allPosts) => {
         return (prevPost.posts > currentPost.posts) ? prevPost : currentPost;
     });
 
-    return  allPosts.filter( post => post.yearCreated === 2019 && post.monthCreated === maxMonth.month); 
+    return  allPosts.filter( post => post.yearCreated === year && post.monthCreated === maxMonth.name); 
 }
 export const styles ={
     width: 500,
@@ -53,6 +55,8 @@ export const styles ={
     color:{
         purple3: '#a44afe',
         background : '#eaedff',
+        midnightBlue : "#191970",
+        black: 'black'
     }
 }
 
