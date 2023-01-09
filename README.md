@@ -1,3 +1,3 @@
 # histogram
 
-Dimensiunea maxima pentru y in grafic este egala cu numarul postarilor din luna cu cele mai multe postari.
+The maximum size for y in the graph is equal to the number of posts in the month with the most posts.
